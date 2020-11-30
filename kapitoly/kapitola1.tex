@@ -1,0 +1,89 @@
+\chapter{Webové služby}
+Pojem webové služby (Web Services) sa začína vo väčšom množstve objavovať okolo roku 2000, kedy na nich firma Microsoft založila svoju, dnes veľmi používanú architektúru \textit{.NET}, IBM ich označila za revolúciu v e-business, SUN hovorí o novej generácií distribuovaných systémov a mohli by sme pokračovať \cite{WebServicesIntro}.
+
+Webové služby sú významným krokom vo vývoji distribuovaných systémov. Nadväzujú na technológie \textbf{RPC} (Remote procedure calls - technológie vzdialeného volania procedúr), \textbf{DCOM} (Distributed Component Object Model - technológie rozširujúce možnosti COM), \textbf{CORBA} (Common Object Request Broker Architecture) a \textbf{RMI} (Remote Method Invocation - technológie vzdialeného volania metód objektov v jazyku \textit{Java}). Všetky tieto technológie umožňujú volať funckiu na vzdialenom systéme \cite{WebTechnologies}. 
+
+Tieto technológie sú tzv. softvérové služby. Softvérová služba je niečo, čo prijme digitálnu (číslicovú) požiadavku a vráti digitálnu odpoveď. Podľa tejto definície, sú funkcia v jazyku C, objekt v Jave, procedúra uložená v SQL príklady softvérovej služby. Kedysi boli softvérové služby limitované konkrétnym jazykom, alebo platformou. Taktiež väčšinou neboli dostupné skrz sieť. Práve toto menia webové služby, ktoré sú jazykovo aj platformovo nezávislé. Túto nezávislosť zabezpečuje použitie formátu XML, ktorý slúži pre vzájomnú výmenu dát \cite{WebServices}.
+
+\section{Aplikačné programové rozhranie}
+
+V dnešnej dobe je zaužívaný pojem API. API je skratka pre \textit{Application Programming Interface} (Aplikačné programové rozhranie). Vo všeobecnosti je to čokoľvek, čo umožňuje jednotlivým častiam softvéru komunikovať medzi sebou. Jedná sa o súhrn funkcií, procedúr, tried, komunikačných protokolov a ďalších nástrojov. Je dôležité, aby metódy určené pre komunikáciu boli presne definované. Existuje viac druhov API, napríklad grafické API, API pre frameworky a knižnice, API operačných systémov a webové API.
+
+\subsection{Webové API}
+
+Webové API definuje, ako spolu komunikujú nejaké komponenty skrz internet, napríklad 2 časti tej istej aplikácie (web stránka si dáta dopytuje zo serveru pomocou požiadaviek), alebo 2 rôzne aplikácie (mobilná aplikácia sťahuje dáta zo serveru). Webové API sú vlastne synonymom pre webové služby, no kvôli zaužívanosti budem ďalej používať pojem API.
+
+\subsubsection*{Druhy webových API}
+
+Ako to už v informatike býva, existuje viacero spôsobov komunikácie. Sú to:
+\begin{itemize}
+\item Jednoduché API
+\item API používajúce protokol \textbf{SOAP}
+\item API používajúce architektúru \textbf{REST}
+\item Graph API od Facebooku
+\end{itemize}
+
+\subsubsection*{Jednoduché API}
+Jednoduché API zvyčanjne ponúkajú iba nejaký zoznam dát k stiahnutiu, napríklad počasie podľa mesta, ale neumožňujú zložitejšiú manipuláciu s dátami. Príklad výstupu jednoduchého API, ktoré je populárne medzi českými e-shopmi, ktoré beží na stránkach Češkej národnej banky na adrese \url{https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.txt} je možné vidieť v kóde nižšie.
+
+\begin{lstlisting}[caption={Výstup API vo formáte CSV \cite{WebAPI}}, label={lst:CSVAPI}]
+27.11.2020 #229
+země|měna|množství|kód|kurz
+Austrálie|dolar|1|AUD|16,203
+Brazílie|real|1|BRL|4,097
+Bulharsko|lev|1|BGN|13,405
+Čína|žen-min-pi|1|CNY|3,344
+Dánsko|koruna|1|DKK|3,523
+EMU|euro|1|EUR|26,220
+Filipíny|peso|100|PHP|45,700
+Hongkong|dolar|1|HKD|2,838
+Chorvatsko|kuna|1|HRK|3,470
+Indie|rupie|100|INR|29,698
+Indonesie|rupie|1000|IDR|1,561
+Island|koruna|100|ISK|16,491
+Izrael|nový šekel|1|ILS|6,629
+Japonsko|jen|100|JPY|21,105
+Jižní Afrika|rand|1|ZAR|1,435
+Kanada|dolar|1|CAD|16,920
+Korejská republika|won|100|KRW|1,989
+Maďarsko|forint|100|HUF|7,236
+Malajsie|ringgit|1|MYR|5,404
+Mexiko|peso|1|MXN|1,095
+MMF|ZPČ|1|XDR|31,346
+Norsko|koruna|1|NOK|2,483
+Nový Zéland|dolar|1|NZD|15,424
+Polsko|zlotý|1|PLN|5,838
+Rumunsko|leu|1|RON|5,380
+Rusko|rubl|100|RUB|28,821
+Singapur|dolar|1|SGD|16,433
+Švédsko|koruna|1|SEK|2,578
+Švýcarsko|frank|1|CHF|24,221
+Thajsko|baht|100|THB|72,548
+Turecko|lira|1|TRY|2,810
+USA|dolar|1|USD|21,993
+Velká Británie|libra|1|GBP|29,312
+\end{lstlisting}
+
+\subsubsection*{SOAP}
+Skratka SOAP znamená \textit{Simple Object Access Protocol}. Správy posielané pomocou protokolu SOAP sú obvykle založené na XML (značkovací jazyk, ktorý je podobný jazyku HTML). Oproti REST je SOAP skôr procedurálny (REST sa orientuje na dáta). To sa prejavuje aj v spôsobe volania - URL adresa pri používaní SOAP bude typicky obsahovať nejaké sloveso, na rozdiel od REST, kde bude typicky podstatné meno.
+
+\subsubsection*{REST}
+REST je v súčasnej dobe veľmi populárna architektúra rozhrania. Je to skratka \textit{REpresentational State Transfer}. Tento pojem zaviedol vo svojej dizertačnej práci Roy Fielding. Roy Fielding je jeden zo spolautorov protokolu HTTP, a teda REST tento protokol používa. REST implementuje základné štyri CRUD operácie. Tieto operácie sú Create, Read, Update, Delete. V protokole HTTP im odpovedajú tieto metódy:
+
+\begin{itemize}
+    \item GET
+    \item POST
+    \item PUT
+    \item DELETE
+\end{itemize}
+
+Vďaka týmto 4 metódam je REST veľmi jednoduché na pochopenie a aj používanie. Oproti SOAP je stručnejšie a efektívnejšie. Aj napriek stručnosti obsahuje každá požiadavka všetky potrebné informácie potrebné k jej vybaveniu a server teda nemusí držať žiadny stav (je stateless). Z toho vyplýva, že pokiaľ aplikácia potrebuje držať nejaký stav, musí ho uchovávať klient. API, ktoré používa rozhranie REST, sa označuje ako \textit{RESTful API}.
+
+\subsubsection*{Graph API}
+Graph API vytvoril a zpopularizoval Facebook, ktorý cez neho prezentuje veľmi rozmanité dáta. Facebooku sa totiž môžeme spýtať toľko vecí, že by REST a dokonca aj SOAP požiadavky boli veľmi neprehľadné. Graph API používa pre reprezentáciu informácií koncept sociálnych grafov s vrcholmi a hranami. Vrcholy sú objekty, ako napríklad používateľ, fotka, komentár atď. Hrany sú spojenia medzi jednotlivými objektami, ako napríklad komentáre pod konkrétnou fotkou. Dáta sú uložené v poliach objektu \cite{WebAPI}.
+
+
+
+
+
+
