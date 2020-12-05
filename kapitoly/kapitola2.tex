@@ -33,8 +33,8 @@ SOAP ale nie je odkázaný iba na HTTP. Môže použiť hociaký transportný pr
 
 Ako je možné vidieť na obrázku \ref{fig:SOAP-HTTP}, prvé 4 riadky sú štandartné parametre protokolu HTTP. Používa sa HTTP metóda \textit{POST} a využíva sa HTTP verzia 1.0 (prvý riadok), volá sa host www.mindstrm.com a používané kódovanie je XML (Content-Type). Content-Length je informácia o dĺžke správy. Piaty riadok obsahuje parameter \textit{SOAPAction}, ktorý už je špecifický pre protokol SOAP. Ten príjemcovi hovorí, čo je obsahom správy. Tento parameter je zavedený iba za účelom šetrenia času, čiže ak príjemca po skontrolovaní parametru SOAPAction zistí, že túto požiadavku nemôže spracovať, nemusí ju zbytočne parsovať. Samotná SOAP požiadavka obsahuje tagy \textit{Envelope}, \textit{Header} (tento tag v obrázku nie je uvedený) a \textit{Body}.
 
-\subsubsection*{Envelope}
-Envelope je párový tag, ktorý zabaľuje celú správu. Tento tag obsahuje \textit{Namespace-y} prislúchajúce protokolu SOAP. Pre SOAP verzie 1.1 je to \url{http://schemas.xmlsoap.org/soap/envelope}. Pre SOAP verzie 1.2 zase \url{http://www.w3.org/2001/12/soap-envelope}. Zvyknú sa tu ešte definovať Namespace-y pre xml-schému a xml-encoding.
+\subsubsection*{Envelope} \label{versions}
+Envelope je párový tag, ktorý zabaľuje celú správu. Tento tag obsahuje \textit{Namespace-y} (menné priestory) prislúchajúce protokolu SOAP. Pre SOAP verzie 1.1 je to \url{http://schemas.xmlsoap.org/soap/envelope}. Pre SOAP verzie 1.2 zase \url{http://www.w3.org/2001/12/soap-envelope}. Zvyknú sa tu ešte definovať menné priestory pre xml-schému a xml-encoding.
 
 \subsubsection*{Header}
 Je voliteľný tag, ktorý definuje správanie príjemcu. V prípade, že \textit{Header} tag nie je vynechaný, je to prvý priamy potomok tagu Envelope. Zvyčajne sa používa pre definovanie parametrov pre prihlásenie, transakcie, a podobne. Potomkovia tagu \textit{Header} môžu použiť 2 parametre: \textit{Actor} a \textit{MustUnderstand}.
@@ -45,5 +45,24 @@ Je voliteľný tag, ktorý definuje správanie príjemcu. V prípade, že \texti
 
 \subsubsection*{Body}
 Body tag obsahuje informáciu o volaných rozhraniach. Jednotlivé subelementy volajú príslušné metódy a vnútri obsahujú príslušné parametre volania s ich udaným typom (v prípade, že to je požadované) \cite{Description}.
+
+\section{Verzie SOAP}
+V časti \ref{versions} boli spomenuté 2 verzie protokolu SOAP: SOAP 1.1 a SOAP 1.2. Obe tieto verzie sú štandartom W3C (World Wide Web Consortium - konzorcium produkujúce slobodné štandarty, "odporúčania", pre World Wide Web). Niektoré zmeny zo SOAP 1.1 na SOAP 1.2 sú významné, niektoré zase menej.
+
+Špecifikácia verzie SOAP 1.2 prináša niekoľko zmien vo verzii 1.1. Niektoré dôležitejšie zmeny medzi verziami napríklad sú:
+\begin{itemize}
+\item SOAP 1.1 je založený na XML 1.0, pričom SOAP 1.2 používa \textit{XML Information Set (XML Infoset)}.
+
+XML Infoset poskytuje spôsob, ako opísať dokument XML  pomocou XSD schémy. Nemusí ho však nevyhnutne serializovať so serializáciou XML 1.0, na ktorej je založené SOAP 1.1. Tento nový spôsob popisu XML dokumentu pomáha odhaliť iné serializačné formáty, ako napríklad formát binárneho protokolu.
+\item SOAP 1.2 poskytuje možnosť oficiálne definovať iné transportné protokoly, ako HTTP.
+\item Menné priestory pre obálku a encoding sa zmenili (viď časť \ref{versions} - Envelope).
+\item SOAP 1.1 je jednoduchý dokument. Špecifikácia SOAP 1.2 je organizovaná v nasledujúcich častiach:
+\begin{itemize}
+\item Časť 0 je nenormatívny úvod do SOAP.
+\item Časť 1 popisuje štruktúru správ SOAP, model spracovania SOAP a framework pre naviazanie SOAP na základné protokoly.
+\item Časť 2 popisuje voliteľné doplnky k jadru SOAP vrátane dátového modelu, kódovania, konvencie RPC a väzby na HTTP. Zhodné implementácie protokolu SOAP môžu implementovať ktorýkoľvek doplnok z časti 2. Ak sú ale doplnky implementované, potom musia zodpovedať príslušným častiam špecifikácie \cite{Versions}.
+\end{itemize}
+\end{itemize}
+
 
 
